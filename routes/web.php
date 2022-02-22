@@ -16,6 +16,6 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('auth');
+});
 
-Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('users', UserController::class)->middleware('auth', 'subscribed', 'verify-age');
