@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('eloquent', function () {
+    $posts = Post::where('id', '>=', '20')
+        ->orderBy('id', 'desc')
+        ->take(3)
+        ->get();
+
+    foreach ($posts as $post) {
+        echo "$post->id - $post->title <br>";
+    }
 });
