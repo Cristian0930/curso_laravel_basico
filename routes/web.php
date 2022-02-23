@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 
@@ -22,5 +23,27 @@ Route::get('eloquent', function () {
 
     foreach ($posts as $post) {
         echo "$post->id - $post->title <br>";
+    }
+});
+
+Route::get('posts', function () {
+    $posts = Post::get();
+
+    foreach ($posts as $post) {
+        echo "
+        $post->id -
+        <strong>{$post->user->name}</strong>
+        $post->title <br>";
+    }
+});
+
+Route::get('users', function () {
+    $users = User::get();
+
+    foreach ($users as $user) {
+        echo "
+        $user->id -
+        <strong>$user->name</strong>
+        {$user->posts->count()} posts<br>";
     }
 });
